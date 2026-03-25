@@ -1,14 +1,13 @@
 'use client';
 
+import { Suspense } from 'react';
 import Results from '@/components/Results';
 
-interface SharePageProps {
-  isShare?: boolean; // true if viewing someone else's shared page
-}
-
-export default function SharePage({ isShare=false }: SharePageProps) {
+export default function SharePage() {
 
   return (
-    <Results isShare={true} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Results isShare={true} />
+    </Suspense>
   );
 }

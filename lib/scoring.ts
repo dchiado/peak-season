@@ -101,13 +101,24 @@ export function orderAndNormalizeMonthScores(
   if (data.length === 0) return [];
 
   const maxScore = Math.max(...data.map(d => d.score));
+  const minScore = Math.min(...data.map(d => d.score));
+
+  if (maxScore === minScore) {
+    return [...data]
+      .sort((a, b) => a.month - b.month)
+      .map(d => ({
+        month: d.month,
+        rawScore: d.score,
+        normalizedScore: 100,
+      }));
+  }
 
   return [...data]
     .sort((a, b) => a.month - b.month)
     .map(d => ({
       month: d.month,
       rawScore: d.score,
-      normalizedScore: Math.round((d.score / maxScore) * 100),
+      normalizedScore: Math.round(((d.score - minScore) / (maxScore - minScore)) * 100),
     }));
 }
 

@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { normalizeMonthScores } from '@/lib/scoring';
+import { orderAndNormalizeMonthScores } from '@/lib/scoring';
 import { MonthScore } from '@/lib/scoring';
+import { writeToClipboard } from '@/lib/utils';
 
 interface ShareModalProps {
   scores: MonthScore[];
@@ -16,16 +17,15 @@ export default function ShareModal({ scores, onClose }: ShareModalProps) {
     const ordered = scores.sort((a, b) => a.month - b.month);
     const m = ordered.map(s => s.score).join(',');
     const url = `${window.location.origin}/share?m=${m}`;
-    await navigator.clipboard.writeText(url);
+    await writeToClipboard(url);
     setCopied('Full Link');
     setTimeout(() => setCopied(null), 1500);
   };
 
   const copySnapshot = async () => {
-    console.log('scores', scores);
-    const snapshot = normalizeMonthScores(scores)
+    const snapshot = orderAndNormalizeMonthScores(scores)
       .map(item => {
-        const pct = item.score;
+        const pct = item.normalizedScore;
         let squares = '';
         if (pct >= 75) squares = '🟩🟩🟩🟩';
         else if (pct >= 50) squares = '🟨🟨🟨';
@@ -34,7 +34,7 @@ export default function ShareModal({ scores, onClose }: ShareModalProps) {
         return `${'JFMAMJJASOND'[item.month]} ${squares}`;
       })
       .join('\n');
-    await navigator.clipboard.writeText(snapshot);
+    await writeToClipboard(snapshot);
     setCopied('Snapshot');
     setTimeout(() => setCopied(null), 1500);
   };
@@ -64,12 +64,12 @@ export default function ShareModal({ scores, onClose }: ShareModalProps) {
         onClick={e => e.stopPropagation()} // prevent closing when clicking inside
       >
         <h2 style={{ marginTop: 0, marginBottom: 16 }}>Share Your Results</h2>
-        <button
+        {/* <button
           onClick={copyFullLink}
           style={buttonStyle}
         >
           {copied === 'Full Link' ? 'Copied!' : 'Copy Full Results Link'}
-        </button>
+        </button> */}
         <button
           onClick={copySnapshot}
           style={buttonStyle}

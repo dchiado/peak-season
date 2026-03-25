@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { normalizeMonthScores } from '@/lib/scoring';
 import { MonthScore } from '@/lib/scoring';
+import { writeToClipboard } from '@/lib/utils';
 
 const MONTH_NAMES_SHORT = ['J','F','M','A','M','J','J','A','S','O','N','D'];
 
@@ -29,7 +30,7 @@ export default function EmojiShareCard({ scores, maxSquares = 4 }: EmojiShareCar
     .join('\n');
 
   const copyEmoji = async () => {
-    await navigator.clipboard.writeText(emojiString);
+    await writeToClipboard(emojiString);
     setCopied(true);
     setTimeout(()=>setCopied(false),1500);
   };

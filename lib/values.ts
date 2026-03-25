@@ -56,7 +56,7 @@ export const SPORT_SEASONS: SportSeasonProfile[] = [
   // College Football
   // ======================
   {
-    sport: 'College Football',
+    sport: 'NCAAF',
     months: [
       { month: 0, baseScore: 5, phases: ['championship'] },     // January: CFP + bowls
       { month: 8, baseScore: 4, phases: ['return'] },           // September: season start
@@ -123,7 +123,7 @@ export const SPORT_SEASONS: SportSeasonProfile[] = [
   // College Basketball
   // ======================
   {
-    sport: 'College Basketball',
+    sport: 'NCAAB',
     months: [
       { month: 0, baseScore: 3, phases: ['regular'] },          // Jan
       { month: 1, baseScore: 3, phases: ['regular'] },          // Feb
@@ -138,7 +138,7 @@ export const SPORT_SEASONS: SportSeasonProfile[] = [
   // European Soccer
   // ======================
   {
-    sport: 'European Soccer',
+    sport: 'EU Soccer',
     months: [
       { month: 0, baseScore: 3, phases: ['regular'] },          // Jan: post-holiday, transfer window
       { month: 1, baseScore: 4, phases: ['regular', 'tournament'] }, // Feb: UCL knockouts

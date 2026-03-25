@@ -8,7 +8,7 @@ export const INTEREST_OPTIONS: {
   { label: 'Love', value: 'love' },
   { label: 'Like', value: 'like' },
   { label: 'Meh', value: 'meh' },
-  { label: "Don't care", value: 'dontcare' },
+  { label: 'Skip', value: 'dontcare' },
 ];
 
 export const INTEREST_WEIGHTS: Record<InterestLevel, number> = {
